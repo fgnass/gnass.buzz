@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Felix Gnass</title>
+<style>
+  /* Locally hosted Roboto Flex variable font (latin subset). */
+  @font-face{
+    font-family:"Roboto Flex";
+    src:url("fonts/roboto-flex.woff2") format("woff2");
+    font-weight:100 1000;
+    font-stretch:25% 151%;
+    font-style:oblique 0deg 10deg;
+    font-display:swap;
+  }
+  :root{
+    --bg:#432371;
+    --ink:#faae7b;
+    --pad:clamp(1.5rem,4vw,3rem);
+    --wght:680;   /* base weight (+ buzz pulse) */
+    --slnt:0;     /* driven by buzz (-10..0)    */
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:"Roboto Flex",system-ui,sans-serif;
+    min-height:100vh;display:flex;flex-direction:column;
+    padding:var(--pad);
+    -webkit-font-smoothing:antialiased;
+    transition:background-color .45s ease,color .45s ease;
+  }
+
+  .kicker{
+    font-size:.8rem;font-weight:600;letter-spacing:.42em;text-transform:uppercase;
+    opacity:.6;text-indent:.42em;
+  }
+
+  /* Main area: left-aligned, vertically centered. Space stays on the right. */
+  main{flex:1;display:flex;flex-direction:column;justify-content:center;
+       gap:clamp(1.5rem,4vh,3rem);padding:clamp(1.2rem,4vh,2.5rem) 0}
+
+  /* Name: each line is sized large and fitted by script. */
+  .name{align-self:stretch}
+  .line{
+    display:block;width:max-content;white-space:nowrap;  /* shrink to text width so measurement is correct */
+    line-height:.84;font-weight:400;letter-spacing:-.005em;text-transform:uppercase;
+    font-variation-settings:"opsz" 144,"slnt" var(--slnt),"wght" var(--wght),"wdth" var(--lw,100);
+  }
+
+  /* Info block: calmly stacked, all left-aligned. */
+  .info{display:flex;flex-direction:column;align-items:flex-start;gap:clamp(1.1rem,2.5vh,1.6rem)}
+  .meta{display:flex;flex-direction:column;gap:.15rem;font-size:1rem;font-weight:500;letter-spacing:.02em}
+  .meta span:nth-child(2){opacity:.65}
+
+  .actions{display:flex;align-items:center;flex-wrap:wrap;gap:.8rem 1.4rem}
+  .cta-hint{font-size:.9rem;font-weight:500;letter-spacing:.02em;opacity:.6}
+  .buzz-btn{
+    font-family:"Roboto Flex",sans-serif;font-weight:800;
+    font-size:clamp(1rem,2.6vw,1.35rem);text-transform:uppercase;letter-spacing:.06em;
+    color:var(--bg);background:var(--ink);
+    border:none;border-radius:999px;padding:.6em 1.4em;cursor:pointer;
+    box-shadow:0 6px 0 rgba(0,0,0,.22);
+    transition:transform .1s ease,box-shadow .1s ease,background-color .45s ease,color .45s ease;
+  }
+  .buzz-btn:hover{transform:translateY(-2px);box-shadow:0 8px 0 rgba(0,0,0,.22)}
+  .buzz-btn:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.22)}
+
+  nav{display:flex;flex-wrap:wrap;gap:.55rem}
+  nav a{
+    display:inline-block;padding:.55em 1.15em;border:2px solid var(--ink);border-radius:999px;
+    color:var(--ink);text-decoration:none;font-weight:600;font-size:.9rem;
+    transition:background-color .18s ease,color .18s ease,border-color .45s ease;
+  }
+  nav a:hover{background:var(--ink);color:var(--bg)}
+</style>
+<script>
+  // Two-color palettes [background, text]. Random on load (set early in the
+  // <head> so there is no flash), then re-rolled on every buzz.
+  window.PALETTES=[
+    ['#432371','#faae7b'],   // Indigo Velvet · Sandy Brown
+    ['#473144','#ffcad4'],   // Vintage Grape · Pastel Pink
+    ['#f8395a','#b3d1ed'],   // Hot Fuchsia · Icy Blue
+    ['#e36887','#f3d98f'],   // Blush · Morning Butter
+    ['#1b3a4b','#f6ae2d'],   // Deep Navy · Amber
+    ['#2b2d42','#ef8354'],   // Gunmetal · Coral
+    ['#5f0f40','#fb8b24'],   // Wine · Orange
+    ['#0b3d2e','#f4a259'],   // Forest · Apricot
+    ['#283618','#fefae0'],   // Olive · Cream
+    ['#3d348b','#f7b801'],   // Ultramarine · Gold
+    ['#0d1b2a','#e0aaff'],   // Midnight · Lavender
+    ['#6a040f','#ffba08'],   // Oxblood · Marigold
+    ['#22223b','#c9ada7'],   // Ink · Rosy Taupe
+    ['#386641','#f2e8cf'],   // Green · Linen
+    ['#7209b7','#ffd6ff'],   // Vivid Purple · Pink Mist
+    ['#264653','#e9c46a']    // Teal · Sand
+  ];
+  // Pick a palette and, randomly, its inverted form (swap background/text).
+  // Track the full state so the exact same combination never repeats twice.
+  let lastKey=-1;
+  function rollPalette(){
+    let i, inv, key;
+    do{
+      i=Math.floor(Math.random()*PALETTES.length);
+      inv=Math.random()<0.5;
+      key=i*2+(inv?1:0);
+    } while(key===lastKey && PALETTES.length>1);
+    lastKey=key;
+    const p=PALETTES[i], s=document.documentElement.style;
+    s.setProperty('--bg', inv?p[1]:p[0]);
+    s.setProperty('--ink',inv?p[0]:p[1]);
+  }
+  rollPalette();
+</script>
+</head>
+<body>
+  <p class="kicker">gnass.buzz</p>
+
+  <main>
+    <div class="name" id="hero">
+      <span class="line">Felix</span>
+      <span class="line">Gnass</span>
+    </div>
+
+    <div class="info">
+      <div class="actions">
+        <div class="meta">
+          <span>Software Developer</span>
+          <span>Hamburg, Germany</span>
+        </div>
+        <button class="buzz-btn" id="buzz" type="button">Click Me</button>
+        <span class="cta-hint">←&nbsp;Make some buzz</span>
+      </div>
+      <nav>
+        <a href="https://github.com/fgnass" rel="me">GitHub</a>
+        <a href="https://www.linkedin.com/in/fgnass/" rel="me">LinkedIn</a>
+        <a href="https://indieweb.social/@fgnass" rel="me">Mastodon</a>
+        <a href="mailto:felix@gnass.buzz">E-Mail</a>
+      </nav>
+    </div>
+  </main>
+
+<script>
+  const root=document.documentElement.style;
+  const hero=document.getElementById('hero');
+  const lines=[...hero.querySelectorAll('.line')];
+  const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+
+  // derive the font size from the viewport HEIGHT (so name + info fit),
+  // then optimize the wdth axis per line so both lines reach the
+  // same target width flush. Filling the full width is not required.
+  const kicker=document.querySelector('.kicker');
+  const info=document.querySelector('.info');
+  function fit(){
+    const vw=hero.clientWidth;
+
+    // 1a) desired font size from the available height
+    const reserve=kicker.offsetHeight+info.offsetHeight+150; // paddings/gaps, rough
+    const fsH=(window.innerHeight-reserve)/2/0.9;
+
+    // 1b) width cap: the widest line at wdth 100 must not exceed the viewport
+    //     → prevents overflow on narrow, tall screens.
+    lines.forEach(l=>{l.style.setProperty('--lw',100);l.style.fontSize='100px';});
+    let widest=0;
+    for(const l of lines) widest=Math.max(widest, l.getBoundingClientRect().width);
+    const fsW=vw/widest*100;
+
+    const fs=clamp(Math.min(fsH,fsW), 40, 320);
+    lines.forEach(l=>l.style.fontSize=fs.toFixed(1)+'px');
+
+    // 2) target width: as wide as the narrowest line can reach (wdth 151),
+    //    capped to the viewport → both lines can hit it flush.
+    let target=vw;
+    for(const l of lines){
+      l.style.setProperty('--lw',151);
+      target=Math.min(target, l.getBoundingClientRect().width);
+    }
+
+    // 3) per line, drive the wdth axis to the target width via binary search
+    for(const l of lines){
+      let lo=25, hi=151;
+      for(let i=0;i<18;i++){
+        const mid=(lo+hi)/2;
+        l.style.setProperty('--lw',mid);
+        (l.getBoundingClientRect().width < target) ? lo=mid : hi=mid;
+      }
+      l.style.setProperty('--lw',((lo+hi)/2).toFixed(2));
+    }
+  }
+
+  // buzz: short, decaying vibrato burst on the slant + weight axes.
+  let energy=0,t=0,running=false;
+  const baseWght=680;
+  function trigger(v=1){
+    energy=Math.max(energy,v);
+    if(!running){ running=true; requestAnimationFrame(loop); }
+  }
+  function loop(){
+    t+=1;
+    const w1=Math.sin(t*0.85)*0.6 + Math.sin(t*1.97)*0.4;
+    const w2=Math.sin(t*1.30+1)*0.6 + Math.sin(t*2.40)*0.4;
+    root.setProperty('--slnt',(-energy*5 + energy*5*w1).toFixed(2)); // -10..0
+    root.setProperty('--wght',(baseWght + energy*170*w2).toFixed(0));
+    energy*=0.93;
+    if(energy<0.01){
+      running=false;
+      root.setProperty('--slnt','0');
+      root.setProperty('--wght',baseWght);
+      return;
+    }
+    requestAnimationFrame(loop);
+  }
+
+  // two buzz sounds, played alternately
+  const sounds=[new Audio('buzz1.mp3'), new Audio('buzz2.mp3')];
+  sounds.forEach(a=>a.preload='auto');
+  let si=0;
+  function playBuzz(){
+    const a=sounds[si]; si^=1;
+    a.currentTime=0; a.play().catch(()=>{});
+  }
+
+  // the buzz button: sound + color change + type buzz
+  document.getElementById('buzz').addEventListener('click',()=>{
+    playBuzz(); rollPalette(); trigger(1);
+  });
+
+  new ResizeObserver(fit).observe(hero);
+  addEventListener('resize',fit);
+
+  // on load: fit the type + silent buzz (no sound/color change)
+  const start=()=>{ fit(); trigger(1); };
+  (document.fonts&&document.fonts.ready)?document.fonts.ready.then(start):start();
+</script>
+</body>
+</html>
