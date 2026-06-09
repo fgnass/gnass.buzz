@@ -55,6 +55,15 @@
 
   .actions{display:flex;align-items:center;flex-wrap:wrap;gap:.8rem 1.4rem}
   .cta-hint{font-size:.9rem;font-weight:500;letter-spacing:.02em;opacity:.6}
+  /* arrow points at the button and nudges toward it now and then */
+  .cta-hint .arrow{display:inline-block;animation:nudge 2.6s ease-in-out infinite}
+  @keyframes nudge{
+    0%,62%,100%{transform:translateX(0)}
+    70%{transform:translateX(-5px)}
+    80%{transform:translateX(-1px)}
+    90%{transform:translateX(-4px)}
+  }
+  @media(prefers-reduced-motion:reduce){.cta-hint .arrow{animation:none}}
   .buzz-btn{
     font-family:"Roboto Flex",sans-serif;font-weight:800;
     font-size:clamp(1rem,2.6vw,1.35rem);text-transform:uppercase;letter-spacing:.06em;
@@ -129,7 +138,7 @@
           <span>Hamburg, Germany</span>
         </div>
         <button class="buzz-btn" id="buzz" type="button">Click Me</button>
-        <span class="cta-hint">←&nbsp;Make some buzz</span>
+        <span class="cta-hint"><span class="arrow">←</span>&nbsp;Make some buzz</span>
       </div>
       <nav>
         <a href="https://github.com/fgnass" rel="me">GitHub</a>
