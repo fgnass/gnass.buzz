@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projects · Felix Gnass</title>
+<style>
+  /* Locally hosted Roboto Flex variable font (latin subset). */
+  @font-face{
+    font-family:"Roboto Flex";
+    src:url("/fonts/roboto-flex.woff2") format("woff2");
+    font-weight:100 1000;
+    font-stretch:25% 151%;
+    font-style:oblique 0deg 10deg;
+    font-display:swap;
+  }
+  :root{
+    --bg:#181c22;        /* cool dark grey */
+    --ink:#dfe3ea;       /* cool light neutral, for page chrome + body copy */
+    --pad:clamp(1.5rem,4vw,3rem);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:"Roboto Flex",system-ui,sans-serif;
+    min-height:100vh;display:flex;flex-direction:column;
+    padding:var(--pad);
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* Unlike the homepage, the projects page is capped — it should not stretch
+     across very wide screens. Left-aligned (no auto centring). */
+  header,main{width:100%;max-width:64rem}
+
+  /* Top bar: the same kicker as home, doubling as a back link. */
+  header{display:flex;align-items:baseline;justify-content:space-between;gap:1rem}
+  .kicker{
+    font-size:.8rem;font-weight:600;letter-spacing:.42em;text-transform:uppercase;
+    opacity:.6;text-indent:.42em;color:var(--ink);text-decoration:none;
+    transition:opacity .18s ease;
+  }
+  .kicker:hover{opacity:1}
+  .back{
+    font-size:.85rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
+    color:var(--ink);text-decoration:none;opacity:.6;transition:opacity .18s ease;
+  }
+  .back:hover{opacity:1}
+  .back .arrow{display:inline-block;transition:transform .18s ease}
+  .back:hover .arrow{transform:translateX(-4px)}
+
+  main{flex:1;display:flex;flex-direction:column;gap:clamp(2.5rem,7vh,5rem);
+       padding:clamp(2rem,7vh,4rem) 0}
+
+  /* Page title, in the same fitted variable-font spirit as the name on home. */
+  h1{
+    line-height:.84;font-weight:400;letter-spacing:-.005em;text-transform:uppercase;
+    font-size:clamp(3.5rem,14vw,11rem);width:max-content;max-width:100%;
+    font-variation-settings:"opsz" 144,"wght" 680,"wdth" 70;
+  }
+
+  .projects{display:flex;flex-direction:column;gap:clamp(2.5rem,7vh,5rem)}
+
+  /* One project = portrait phone screenshot + text, side by side, alternating.
+     Each project's accent colour is set inline (--accent), sampled from its
+     own screenshot; --shadow is derived from it for the frame's coloured lift. */
+  .project{
+    display:grid;gap:clamp(1.5rem,5vw,4rem);align-items:center;
+    grid-template-columns:minmax(0,300px) 1fr;
+    --shadow:color-mix(in srgb,var(--accent) 25%,transparent);
+  }
+  .project:nth-child(even){grid-template-columns:1fr minmax(0,300px)}
+  .project:nth-child(even) .shot{order:2}
+
+  /* Screenshot frame: the same hard, playful offset shadow as the buzz button. */
+  .shot{
+    display:block;border-radius:26px;overflow:hidden;
+    border:2px solid color-mix(in srgb,var(--accent) 35%,transparent);
+    box-shadow:0 10px 0 var(--shadow);
+    background:color-mix(in srgb,var(--accent) 8%,transparent);
+    transition:transform .12s ease,box-shadow .12s ease;
+    text-decoration:none;color:inherit;
+  }
+  .shot:hover{transform:translateY(-3px);box-shadow:0 13px 0 var(--shadow)}
+  .shot:active{transform:translateY(4px);box-shadow:0 6px 0 var(--shadow)}
+  .shot img{display:block;width:100%;height:auto}
+
+  /* A frame can hold more than one shot: stack them and crossfade on a loop.
+     The first <img> is the resting hero (shown if animation is disabled); any
+     following <img> fades in over it. Aspect ratio matches the phone shots so
+     the absolutely-positioned layers have a box to fill. */
+  .shot--slides{position:relative;aspect-ratio:9/19.5}
+  .shot--slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .shot--slides img+img{opacity:0;animation:crossfade 9s ease-in-out infinite}
+  @keyframes crossfade{
+    0%,6%    {opacity:0}   /* hero */
+    12%,44%  {opacity:1}   /* alternate shot */
+    50%,100% {opacity:0}   /* back to hero */
+  }
+  @media(prefers-reduced-motion:reduce){
+    .shot--slides img+img{animation:none}
+  }
+
+  /* Graceful placeholder while a screenshot file is missing. */
+  .shot .ph{
+    display:flex;align-items:center;justify-content:center;
+    aspect-ratio:9/19.5;font-size:.8rem;font-weight:600;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--accent);opacity:.55;
+  }
+
+  .about{display:flex;flex-direction:column;align-items:flex-start;gap:.9rem}
+  .proj-name{
+    font-size:clamp(2rem,5vw,3.2rem);line-height:.9;font-weight:400;
+    text-transform:uppercase;letter-spacing:-.01em;color:var(--accent);
+    font-variation-settings:"opsz" 80,"wght" 720,"wdth" 90;
+  }
+  .desc{font-size:1.05rem;font-weight:500;line-height:1.45;max-width:42ch;opacity:.8}
+  .links{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:.3rem}
+  .links a{
+    display:inline-block;padding:.5em 1.1em;border:2px solid var(--accent);border-radius:999px;
+    color:var(--accent);text-decoration:none;font-weight:600;font-size:.85rem;
+    transition:background-color .18s ease,color .18s ease;
+  }
+  .links a:hover{background:var(--accent);color:var(--bg)}
+
+  @media(max-width:720px){
+    .project,.project:nth-child(even){grid-template-columns:1fr}
+    .project:nth-child(even) .shot{order:0}
+    .shot{max-width:280px}
+  }
+</style>
+</head>
+<body>
+  <header>
+    <a class="kicker" href="/">gnass.buzz</a>
+    <a class="back" href="/"><span class="arrow">←</span> Home</a>
+  </header>
+
+  <main>
+    <h1>Projects</h1>
+
+    <!--
+      Mobile portrait screenshots (~9:19.5) live alongside this file in /projects/.
+      --accent on each <article> is sampled from that project's screenshot.
+      Edit the .desc text below with the real one-liners.
+    -->
+    <div class="projects">
+
+      <article class="project" style="--accent:#f9ad7b">
+        <!-- Two generated shots (npm run screenshot in the tuner repo), crossfading
+             in one frame: the live tuning curve and the start screen. -->
+        <a class="shot shot--slides" href="https://github.com/fgnass/tuner">
+          <img src="/projects/tuner-tuning.png" alt="Screenshot of tuner tuning a guitar's A string"
+               loading="lazy" onerror="this.closest('.shot').replaceChildren(Object.assign(document.createElement('div'),{className:'ph',textContent:'tuner'}))">
+          <img src="/projects/tuner-start.png" alt="" aria-hidden="true" loading="lazy">
+        </a>
+        <div class="about">
+          <h2 class="proj-name">tuner</h2>
+          <p class="desc">A free, full-screen instrument tuner that runs entirely in your browser — no app, no account, no network.</p>
+          <nav class="links">
+            <a href="https://github.com/fgnass/tuner">Source</a>
+            <!-- <a href="https://fgnass.github.io/tuner/">Live demo</a> -->
+          </nav>
+        </div>
+      </article>
+
+      <article class="project" style="--accent:#9e6bff">
+        <a class="shot" href="https://github.com/fgnass/truffle">
+          <!-- Loaded live from the deployed app so the portfolio stays in sync
+               whenever the screenshots are regenerated (npm run screenshot in
+               the truffle repo). Swap hero.png for dice.png / roster.png to
+               feature a different shot. -->
+          <img src="https://truffle.gnass.buzz/screenshots/hero.png" alt="Screenshot of truffle"
+               loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'truffle'}))">
+        </a>
+        <div class="about">
+          <h2 class="proj-name">truffle</h2>
+          <p class="desc">One-line description of truffle — what it does and why it’s nice.</p>
+          <nav class="links">
+            <a href="https://github.com/fgnass/truffle">Source</a>
+          </nav>
+        </div>
+      </article>
+
+      <article class="project" style="--accent:#cbbb82">
+        <a class="shot" href="https://github.com/fgnass/theremine">
+          <img src="/projects/theremine.png" alt="Screenshot of theremine"
+               loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'theremine'}))">
+        </a>
+        <div class="about">
+          <h2 class="proj-name">theremine</h2>
+          <p class="desc">One-line description of theremine — what it does and why it’s nice.</p>
+          <nav class="links">
+            <a href="https://github.com/fgnass/theremine">Source</a>
+          </nav>
+        </div>
+      </article>
+
+    </div>
+  </main>
+</body>
+</html>
