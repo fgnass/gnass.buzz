@@ -5,9 +5,20 @@
 // onto <html>; the colours themselves live in palette.css, and subsequent
 // re-rolls are handled by buzz.js. Keep the count in sync with palette.css.
 (function () {
+  var el = document.documentElement;
   var n = 16,
     k = Math.floor(Math.random() * n);
-  document.documentElement.dataset.pal = k;
-  if (Math.random() < 0.5)
-    document.documentElement.setAttribute('data-inv', '');
+  el.dataset.pal = k;
+  if (Math.random() < 0.5) el.setAttribute('data-inv', '');
+  // mirror the just-picked --bg into theme-color so the mobile address bar is
+  // tinted from the first paint. palette.css is a blocking sheet above this
+  // script, so --bg already resolves here. Re-rolls/navigation are handled in
+  // buzz.js (syncThemeColor).
+  var m = document.querySelector('meta[name="theme-color"]');
+  if (!m) {
+    m = document.createElement('meta');
+    m.name = 'theme-color';
+    document.head.appendChild(m);
+  }
+  m.content = getComputedStyle(el).getPropertyValue('--bg').trim();
 })();

@@ -37,6 +37,21 @@ function rollPalette() {
   docEl.toggleAttribute('data-inv', (key & 1) === 1);
 }
 
+/* Mirror the current resolved --bg into <meta name="theme-color"> so the mobile
+   browser chrome matches the page. Called after every entry (covers re-rolls on
+   home and the fixed /projects colour). roll.js does the same pre-paint. */
+function syncThemeColor() {
+  const bg = getComputedStyle(docEl).getPropertyValue('--bg').trim();
+  if (!bg) return;
+  let m = document.querySelector('meta[name="theme-color"]');
+  if (!m) {
+    m = document.createElement('meta');
+    m.name = 'theme-color';
+    document.head.appendChild(m);
+  }
+  m.content = bg;
+}
+
 /* ---- buzz: short, decaying vibrato on the slant + weight axes -----------
    Drives the --slnt / --wght custom properties on :root; any title that reads
    them in its font-variation-settings buzzes in sync. */
@@ -120,6 +135,7 @@ function enter(initial) {
   onResize = onScroll = null; // page re-opts into what it needs
   const page = PAGES[norm(location.pathname)];
   if (page) page(initial, api);
+  syncThemeColor(); // home's enter() re-rolls first, so --bg is settled here
 }
 
 /* ---- tiny SPA router ----------------------------------------------------
