@@ -28,7 +28,11 @@ body {
   background: var(--bg);
   color: var(--ink);
   font-family: 'Roboto Flex', system-ui, sans-serif;
-  min-height: 100vh;
+  /* svh (small viewport height) = the stable chrome-visible height, so the page
+     never grows taller than the visible area: with 100vh (the large/no-chrome
+     height) you could scroll by the height of the browser chrome. */
+  min-height: 100vh; /* fallback for browsers without svh */
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
   padding: var(--pad);
