@@ -1,0 +1,188 @@
+/* Home page styles. Linked as #page-css; the SPA router swaps this stylesheet
+   for projects.css on navigation. Palette colours come from palette.css. */
+
+/* Locally hosted Roboto Flex variable font (latin subset). */
+@font-face {
+  font-family: 'Roboto Flex';
+  src: url('/fonts/roboto-flex.woff2') format('woff2');
+  font-weight: 100 1000;
+  font-stretch: 25% 151%;
+  font-style: oblique 0deg 10deg;
+  font-display: swap;
+}
+:root {
+  /* --bg/--ink are the no-JS fallback (palette 0); with JS, palette.css
+     overrides them via the data-pal attribute set before first paint. */
+  --bg: #432371;
+  --ink: #faae7b;
+  --pad: clamp(1.5rem, 4vw, 3rem);
+  --wght: 680; /* base weight (+ buzz pulse) */
+  --slnt: 0; /* driven by buzz (-10..0)    */
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Roboto Flex', system-ui, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: var(--pad);
+  -webkit-font-smoothing: antialiased;
+  transition:
+    background-color 0.45s ease,
+    color 0.45s ease;
+}
+
+.kicker {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  text-indent: 0.42em;
+}
+
+/* Main area: left-aligned, vertically centered. Space stays on the right. */
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(1.5rem, 4vh, 3rem);
+  padding: clamp(1.2rem, 4vh, 2.5rem) 0;
+}
+
+/* Name: each line is sized large and fitted by script. */
+.name {
+  align-self: stretch;
+}
+.line {
+  display: block;
+  width: max-content;
+  white-space: nowrap; /* shrink to text width so measurement is correct */
+  line-height: 0.84;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  font-variation-settings:
+    'opsz' 144,
+    'slnt' var(--slnt),
+    'wght' var(--wght),
+    'wdth' var(--lw, 100);
+}
+
+/* Info block: calmly stacked, all left-aligned. */
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(1.1rem, 2.5vh, 1.6rem);
+}
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.meta span:nth-child(2) {
+  opacity: 0.65;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.8rem 1.4rem;
+}
+.cta-hint {
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  opacity: 0.6;
+}
+/* arrow points at the button and nudges toward it now and then */
+.cta-hint .arrow {
+  display: inline-block;
+  animation: nudge 2.6s ease-in-out infinite;
+}
+@keyframes nudge {
+  0%,
+  62%,
+  100% {
+    transform: translateX(0);
+  }
+  70% {
+    transform: translateX(-5px);
+  }
+  80% {
+    transform: translateX(-1px);
+  }
+  90% {
+    transform: translateX(-4px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cta-hint .arrow {
+    animation: none;
+  }
+}
+.buzz-btn {
+  display: inline-block;
+  text-decoration: none;
+  font-family: 'Roboto Flex', sans-serif;
+  font-weight: 800;
+  font-size: clamp(1rem, 2.6vw, 1.35rem);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--bg);
+  background: var(--ink);
+  border: none;
+  border-radius: 999px;
+  padding: 0.6em 1.4em;
+  cursor: pointer;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.22);
+  transition:
+    transform 0.1s ease,
+    box-shadow 0.1s ease,
+    background-color 0.45s ease,
+    color 0.45s ease;
+}
+.buzz-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 0 rgba(0, 0, 0, 0.22);
+}
+.buzz-btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.22);
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+nav a {
+  display: inline-block;
+  padding: 0.55em 1.15em;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease,
+    border-color 0.45s ease;
+}
+nav a:hover {
+  background: var(--ink);
+  color: var(--bg);
+}

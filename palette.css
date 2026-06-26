@@ -1,0 +1,86 @@
+/* Random two-colour palettes for the home page. The pick happens in JS, which
+   only sets data-pal (index) and, when inverted, data-inv on <html>; the colours
+   themselves live here.
+
+   Each palette stores its pair as --a (background) / --b (text). The mapping
+   rules below are gated on [data-pal], so they apply ONLY when a palette has
+   been chosen (i.e. on the home page). Pages without the attribute — like
+   /projects — keep their own :root colours untouched. The [data-inv] variant
+   simply swaps the pair.
+
+   16 palettes — keep this count in sync with PALETTE_COUNT in buzz.js and the
+   inline pre-paint roll in index.html. */
+
+html[data-pal] {
+  --bg: var(--a);
+  --ink: var(--b);
+}
+html[data-pal][data-inv] {
+  --bg: var(--b);
+  --ink: var(--a);
+}
+
+html[data-pal='0'] {
+  --a: #432371;
+  --b: #faae7b;
+} /* Indigo Velvet · Sandy Brown */
+html[data-pal='1'] {
+  --a: #473144;
+  --b: #ffcad4;
+} /* Vintage Grape · Pastel Pink */
+html[data-pal='2'] {
+  --a: #f8395a;
+  --b: #b3d1ed;
+} /* Hot Fuchsia · Icy Blue */
+html[data-pal='3'] {
+  --a: #e36887;
+  --b: #f3d98f;
+} /* Blush · Morning Butter */
+html[data-pal='4'] {
+  --a: #1b3a4b;
+  --b: #f6ae2d;
+} /* Deep Navy · Amber */
+html[data-pal='5'] {
+  --a: #2b2d42;
+  --b: #ef8354;
+} /* Gunmetal · Coral */
+html[data-pal='6'] {
+  --a: #5f0f40;
+  --b: #fb8b24;
+} /* Wine · Orange */
+html[data-pal='7'] {
+  --a: #0b3d2e;
+  --b: #f4a259;
+} /* Forest · Apricot */
+html[data-pal='8'] {
+  --a: #283618;
+  --b: #fefae0;
+} /* Olive · Cream */
+html[data-pal='9'] {
+  --a: #3d348b;
+  --b: #f7b801;
+} /* Ultramarine · Gold */
+html[data-pal='10'] {
+  --a: #0d1b2a;
+  --b: #e0aaff;
+} /* Midnight · Lavender */
+html[data-pal='11'] {
+  --a: #6a040f;
+  --b: #ffba08;
+} /* Oxblood · Marigold */
+html[data-pal='12'] {
+  --a: #22223b;
+  --b: #c9ada7;
+} /* Ink · Rosy Taupe */
+html[data-pal='13'] {
+  --a: #386641;
+  --b: #f2e8cf;
+} /* Green · Linen */
+html[data-pal='14'] {
+  --a: #7209b7;
+  --b: #ffd6ff;
+} /* Vivid Purple · Pink Mist */
+html[data-pal='15'] {
+  --a: #264653;
+  --b: #e9c46a;
+} /* Teal · Sand */

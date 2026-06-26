@@ -1,0 +1,414 @@
+/* Projects page styles. Linked as #page-css; the SPA router swaps this
+   stylesheet for home.css on navigation. This page uses its own fixed theme
+   (no random palette), so it sets --bg/--ink directly on :root. */
+
+/* Locally hosted Roboto Flex variable font (latin subset). */
+@font-face {
+  font-family: 'Roboto Flex';
+  src: url('/fonts/roboto-flex.woff2') format('woff2');
+  font-weight: 100 1000;
+  font-stretch: 25% 151%;
+  font-style: oblique 0deg 10deg;
+  font-display: swap;
+}
+:root {
+  --bg: #181c22;
+  --ink: #dfe3ea;
+  --pad: clamp(1.5rem, 4vw, 3rem);
+  --wght: 680; /* base weight (+ buzz pulse) */
+  --slnt: 0; /* driven by buzz (-10..0)    */
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Full-screen panels that snap as you scroll. svh (small viewport height) keeps
+   each panel a stable height that always fits, even while mobile browser chrome
+   shows/hides — avoiding the jump dvh would cause mid-snap. */
+html {
+  scroll-snap-type: y mandatory;
+}
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Roboto Flex', system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap {
+  width: 100%;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding-inline: var(--pad);
+}
+
+/* Intro: a full-screen title panel — kicker/back pinned top, name centred.
+   Full-bleed (padding on all sides, no max-width) so the title fills the same
+   width as the home page name and its wdth axis flexes the same way. */
+/* Intro panel takes a palette pair from the home page (Gunmetal · Coral):
+   a dark ground for the title to pop on, with coral that leads into the
+   peach of the first project band. */
+.intro {
+  --ink: #ef8354;
+  background: #2b2d42;
+  color: var(--ink);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  padding: var(--pad);
+  scroll-snap-align: start;
+}
+header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.kicker {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  text-indent: 0.42em;
+  color: var(--ink);
+  text-decoration: none;
+  transition: opacity 0.18s;
+}
+.kicker:hover {
+  opacity: 1;
+}
+.back {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  opacity: 0.6;
+  transition: opacity 0.18s;
+}
+.back:hover {
+  opacity: 1;
+}
+.back .arrow {
+  display: inline-block;
+  transition: transform 0.18s;
+}
+.back:hover .arrow {
+  transform: translateX(-4px);
+}
+.title {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+/* Sized + width-fitted by script (see fitTitle), exactly like the home name. */
+h1 {
+  display: block;
+  width: max-content;
+  white-space: nowrap;
+  line-height: 0.84;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  font-variation-settings:
+    'opsz' 144,
+    'slnt' var(--slnt),
+    'wght' var(--wght),
+    'wdth' var(--lw, 100);
+}
+
+/* Scroll hint at the foot of the intro panel. The whole cue dips on an eased
+   curve; the upper chevron lags and dips a touch further, so the pair pinches
+   together at the bottom of the motion, then pops back with a slight
+   overshoot. Pure translateY → the chevron shape never distorts. Fades out
+   once the page is scrolled (toggled by script). */
+.scroll-cue {
+  align-self: center;
+  background: none;
+  border: 0;
+  color: var(--ink);
+  cursor: pointer;
+  padding: 0.5rem;
+  opacity: 0.55;
+  transition: opacity 0.3s ease;
+  animation: cue-bob 2s cubic-bezier(0.45, 0.05, 0.35, 1) infinite;
+}
+.scroll-cue:hover {
+  opacity: 1;
+}
+.scroll-cue svg {
+  display: block;
+  width: 32px;
+  height: 32px;
+  overflow: visible;
+}
+.scroll-cue .chev-top {
+  animation: cue-squeeze 2s cubic-bezier(0.45, 0.05, 0.35, 1) infinite;
+}
+.scroll-cue.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+@keyframes cue-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  48% {
+    transform: translateY(6px);
+  }
+}
+@keyframes cue-squeeze {
+  0%,
+  28% {
+    transform: translateY(0);
+  }
+  56% {
+    transform: translateY(3.5px);
+  } /* upper chevron catches up to the lower */
+  76% {
+    transform: translateY(-1px);
+  } /* springy release */
+  100% {
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-cue,
+  .scroll-cue .chev-top {
+    animation: none;
+  }
+}
+
+/* Each project is a full-screen band flooded edge to edge with its own accent.
+   The framed screenshot stands on the colour with a rounded border + hard offset
+   shadow (the buzz-button lift); all text/chrome takes a dark tone of that accent
+   (--ink-on) so each panel reads as one colour family. */
+.projects {
+  display: flex;
+  flex-direction: column;
+}
+.band {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  scroll-snap-align: start;
+  background: var(--accent);
+}
+.band-inner {
+  width: 100%;
+  max-width: 72rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: clamp(2rem, 6vw, 5rem);
+  padding: clamp(2rem, 6vw, 4rem) var(--pad);
+}
+.band:nth-child(even) .media {
+  order: 2;
+}
+.media {
+  display: flex;
+  justify-content: center;
+}
+
+.shot {
+  display: block;
+  width: min(100%, 250px);
+  text-decoration: none;
+  color: inherit;
+  border-radius: 26px;
+  overflow: hidden;
+  border: 2px solid var(--frame);
+  box-shadow: 0 10px 0 rgba(0, 0, 0, 0.22);
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease;
+}
+.shot:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 13px 0 rgba(0, 0, 0, 0.22);
+}
+.shot:active {
+  transform: translateY(4px);
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.22);
+}
+.shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+/* A frame can hold more than one shot: stack them and crossfade on a loop. */
+.shot--slides {
+  position: relative;
+  aspect-ratio: 9/19.5;
+}
+.shot--slides img {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  object-fit: cover;
+}
+.shot--slides img + img {
+  opacity: 0;
+  animation: crossfade 12s ease-in-out infinite;
+}
+.shot--slides img:nth-child(3) {
+  animation-delay: -6s;
+}
+@keyframes crossfade {
+  0%,
+  6% {
+    opacity: 0;
+  }
+  12%,
+  38% {
+    opacity: 1;
+  }
+  44%,
+  100% {
+    opacity: 0;
+  }
+}
+/* Graceful placeholder while a screenshot file is missing. */
+.ph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 9/19.5;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-on);
+  opacity: 0.6;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.2rem;
+}
+.proj-name {
+  font-size: clamp(2.4rem, 6vw, 4.5rem);
+  line-height: 0.84;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: -0.015em;
+  color: var(--ink-on);
+  font-variation-settings:
+    'opsz' 100,
+    'wght' 780,
+    'wdth' 80;
+}
+.desc {
+  font-size: 1.05rem;
+  font-weight: 500;
+  line-height: 1.5;
+  max-width: 44ch;
+  color: var(--ink-on);
+  opacity: 0.85;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 0.5rem;
+}
+.links a {
+  display: inline-block;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.72em 1.6em;
+  transition:
+    transform 0.1s ease,
+    box-shadow 0.1s ease,
+    background-color 0.18s ease,
+    color 0.18s ease;
+}
+/* Primary: solid ink fill with the buzz button's hard shadow + press. */
+.links a.solid {
+  background: var(--ink-on);
+  color: var(--accent);
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.22);
+}
+.links a.solid:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 0 rgba(0, 0, 0, 0.22);
+}
+.links a.solid:active {
+  transform: translateY(3px);
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.22);
+}
+/* Secondary: outlined ghost. */
+.links a.ghost {
+  border: 2px solid var(--ink-on);
+  color: var(--ink-on);
+  padding: calc(0.72em - 2px) calc(1.6em - 2px);
+}
+.links a.ghost:hover {
+  background: var(--ink-on);
+  color: var(--accent);
+}
+
+/* Reveal: the band colour is painted immediately; only its contents rise into
+   place as the panel scrolls in. CSS scroll-driven (view timeline) — no JS,
+   no fade. Falls back to a static layout where unsupported / reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .media,
+    .text {
+      animation: rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 75%;
+    }
+    .text {
+      animation-range: entry 12% entry 88%;
+    }
+    @keyframes rise {
+      from {
+        transform: translateY(64px);
+      }
+      to {
+        transform: translateY(0);
+      }
+    }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .shot--slides img + img {
+    animation: none;
+  }
+}
+
+@media (max-width: 760px) {
+  /* Stacked content can exceed one screen — drop snapping and fixed heights. */
+  html {
+    scroll-snap-type: none;
+  }
+  .band {
+    min-height: 0;
+    padding-block: clamp(3rem, 9vh, 5rem);
+  }
+  .band-inner {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+  .band:nth-child(even) .media {
+    order: 0;
+  }
+  .shot {
+    max-width: 240px;
+  }
+}
