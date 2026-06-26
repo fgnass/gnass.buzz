@@ -37,6 +37,9 @@ body {
   display: flex;
   flex-direction: column;
   -webkit-font-smoothing: antialiased;
+  /* Drop the grey/blue tap flash mobile browsers paint over tapped elements;
+     it clashes with the buzz/press effects. (Inherits to all descendants.) */
+  -webkit-tap-highlight-color: transparent;
 }
 .wrap {
   width: 100%;

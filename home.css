@@ -33,6 +33,9 @@ body {
   flex-direction: column;
   padding: var(--pad);
   -webkit-font-smoothing: antialiased;
+  /* Drop the grey/blue tap flash mobile browsers paint over tapped elements;
+     it clashes with the buzz/press effects. (Inherits to all descendants.) */
+  -webkit-tap-highlight-color: transparent;
   transition:
     background-color 0.45s ease,
     color 0.45s ease;
