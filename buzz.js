@@ -82,15 +82,40 @@ function trigger(v = 1) {
   }
 }
 
-/* ---- two buzz sounds, played alternately -------------------------------- */
-const sounds = [new Audio('/buzz1.mp3'), new Audio('/buzz2.mp3')];
-sounds.forEach((a) => (a.preload = 'auto'));
+/* ---- two buzz sounds, played alternately, via Web Audio -----------------
+   HTMLAudioElement.play() has audible start latency: it decodes + buffers on
+   every play and resolves a promise before any sound comes out. Instead we
+   decode both clips once into AudioBuffers and fire a fresh buffer-source node
+   per buzz, which starts synchronously with ~no latency. The context begins
+   suspended (autoplay policy) and is resumed on the first buzz, which always
+   rides a user gesture (click / popstate). */
+const SRC = ['/buzz1.mp3', '/buzz2.mp3'];
+const AC = window.AudioContext || window.webkitAudioContext;
+const actx = AC ? new AC() : null;
+const buffers = [];
+if (actx)
+  SRC.forEach((url, i) =>
+    fetch(url)
+      .then((r) => r.arrayBuffer())
+      .then((b) => actx.decodeAudioData(b))
+      .then((buf) => (buffers[i] = buf))
+      .catch(() => {}),
+  );
+
 let si = 0;
 function playBuzz() {
-  const a = sounds[si];
+  const i = si;
   si ^= 1;
-  a.currentTime = 0;
-  a.play().catch(() => {});
+  if (actx && buffers[i]) {
+    if (actx.state === 'suspended') actx.resume();
+    const src = actx.createBufferSource();
+    src.buffer = buffers[i];
+    src.connect(actx.destination);
+    src.start();
+    return;
+  }
+  // no Web Audio, or a buzz before decode finished → plain element fallback
+  new Audio(SRC[i]).play().catch(() => {});
 }
 
 // sound + animation in one shot (used on the CTA button and on navigation)
