@@ -151,8 +151,8 @@ h1 {
 }
 .scroll-cue svg {
   display: block;
-  width: 32px;
-  height: 32px;
+  width: 48px;
+  height: 48px;
   overflow: visible;
 }
 .scroll-cue .chev-top {
@@ -401,9 +401,12 @@ h1 {
 }
 
 @media (max-width: 760px) {
-  /* Stacked content can exceed one screen — drop snapping and fixed heights. */
+  /* Stacked content can exceed one screen, so drop the fixed panel heights and
+     use proximity (not mandatory) snapping: panels snap into view when you come
+     to rest near their start, but a band taller than the screen never traps the
+     scroll — you can always read it through. */
   html {
-    scroll-snap-type: none;
+    scroll-snap-type: y proximity;
   }
   .band {
     min-height: 0;
