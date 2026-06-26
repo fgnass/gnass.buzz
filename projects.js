@@ -62,11 +62,12 @@ export function enter(initial, api) {
 
   // fit + buzz the PROJECTS title. On an SPA entry the click already played the
   // sound and the vibrato carries over; this keeps it lively on a direct load too.
-  const start = () => {
-    fitTitle();
-    api.trigger(1);
-  };
-  document.fonts && document.fonts.ready
-    ? document.fonts.ready.then(start)
-    : start();
+  // Size synchronously, before the browser paints the (SPA-swapped) body, so the
+  // title never flashes at the UA-default size first. On SPA entry from home the
+  // webfont is already loaded, so this measures correctly; on a cold direct load
+  // we re-fit once the real font metrics are in (fitTitle is idempotent, so the
+  // warm case sees no jump).
+  fitTitle();
+  api.trigger(1);
+  document.fonts && document.fonts.ready && document.fonts.ready.then(fitTitle);
 }

@@ -106,11 +106,16 @@ header {
   display: flex;
   align-items: center;
 }
-/* Sized + width-fitted by script (see fitTitle), exactly like the home name. */
+/* Sized + width-fitted by script (see fitTitle), exactly like the home name.
+   The font-size below is a no-JS / pre-script fallback that mirrors fitTitle's
+   height formula — fsH = (innerHeight - HOME_RESERVE) / 2 / 0.9 — so the first
+   paint is already the right size and the script then only refines the wdth
+   axis (no size jump). */
 h1 {
   display: block;
   width: max-content;
   white-space: nowrap;
+  font-size: clamp(40px, calc((100svh - 270px) / 1.8), 320px);
   line-height: 0.84;
   font-weight: 400;
   letter-spacing: -0.005em;
