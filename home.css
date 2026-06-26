@@ -57,9 +57,14 @@ main {
   padding: clamp(1.2rem, 4vh, 2.5rem) 0;
 }
 
-/* Name: each line is sized large and fitted by script. */
+/* Name: each line is sized large and fitted by script. Clicking it re-rolls the
+   palette and buzzes (see home.js), so it reads as interactive and never gets
+   caught in a text selection. */
 .name {
   align-self: stretch;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
 }
 .line {
   display: block;

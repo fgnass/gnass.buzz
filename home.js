@@ -69,6 +69,15 @@ export function enter(initial, api) {
     mail.href = 'mailto:' + user + String.fromCharCode(64) + domain;
   }
 
+  // clicking the name re-rolls the palette and buzzes (the click is a user
+  // gesture, so the sound is allowed to play; samples alternate in playBuzz).
+  // hero is a fresh element on every entry (the router replaces <body>), so this
+  // never stacks duplicate listeners.
+  hero.addEventListener('click', () => {
+    api.rollPalette();
+    api.buzz();
+  });
+
   // keep the type fitted across viewport resizes and hero width changes
   api.setResize(fit);
   ro && ro.disconnect();

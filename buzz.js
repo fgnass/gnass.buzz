@@ -35,6 +35,7 @@ function rollPalette() {
   lastKey = key;
   docEl.dataset.pal = key >> 1;
   docEl.toggleAttribute('data-inv', (key & 1) === 1);
+  syncThemeColor(); // keep the mobile chrome in step with the new --bg
 }
 
 /* Mirror the current resolved --bg into <meta name="theme-color"> so the mobile
@@ -143,6 +144,7 @@ addEventListener(
 
 const api = {
   trigger,
+  buzz,
   rollPalette,
   setResize(fn) {
     onResize = fn;
