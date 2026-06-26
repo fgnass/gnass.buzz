@@ -42,7 +42,10 @@ function rollPalette() {
    browser chrome matches the page. Called after every entry (covers re-rolls on
    home and the fixed /projects colour). roll.js does the same pre-paint. */
 function syncThemeColor() {
-  const bg = getComputedStyle(docEl).getPropertyValue('--bg').trim();
+  // Prefer --theme (the colour at the top of the page, e.g. the projects
+  // intro/header bg) and fall back to the page background --bg (home page).
+  const cs = getComputedStyle(docEl);
+  const bg = (cs.getPropertyValue('--theme') || cs.getPropertyValue('--bg')).trim();
   if (!bg) return;
   let m = document.querySelector('meta[name="theme-color"]');
   if (!m) {

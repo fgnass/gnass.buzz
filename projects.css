@@ -14,6 +14,10 @@
 :root {
   --bg: #181c22;
   --ink: #dfe3ea;
+  /* Colour at the very top of the page (the intro/header bg). syncThemeColor
+     reads this for the mobile chrome so it matches what's under the status bar,
+     rather than the page background --bg. */
+  --theme: #2b2d42;
   --pad: clamp(1.5rem, 4vw, 3rem);
   --wght: 680; /* base weight (+ buzz pulse) */
   --slnt: 0; /* driven by buzz (-10..0)    */
@@ -56,7 +60,7 @@ body {
    peach of the first project band. */
 .intro {
   --ink: #ef8354;
-  background: #2b2d42;
+  background: var(--theme);
   color: var(--ink);
   min-height: 100svh;
   display: flex;
