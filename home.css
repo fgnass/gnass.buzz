@@ -101,6 +101,14 @@ main {
   flex-wrap: wrap;
   gap: 0.8rem 1.4rem;
 }
+/* Keep the button and its "← bzzzt" hint on one line: the arrow points at the
+   button, so a wrap between them would leave it pointing at the screen edge.
+   The group still wraps as a unit relative to the meta block. */
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+}
 .cta-hint {
   font-size: 0.9rem;
   font-weight: 500;
