@@ -19,7 +19,7 @@ const docEl = document.documentElement;
    the attributes; never repeat the exact same combination twice in a row.
    lastKey is seeded from the pre-paint pick so the first re-roll differs from
    what the page loaded with. */
-const PALETTE_COUNT = 16; // keep in sync with palette.css + public/roll.js
+const PALETTE_COUNT = 18; // keep in sync with palette.css + public/roll.js
 const keyOf = () =>
   docEl.dataset.pal == null
     ? -1

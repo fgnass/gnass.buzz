@@ -6,7 +6,7 @@
 // re-rolls are handled by buzz.js. Keep the count in sync with palette.css.
 (function () {
   var el = document.documentElement;
-  var n = 16,
+  var n = 18,
     k = Math.floor(Math.random() * n);
   el.dataset.pal = k;
   if (Math.random() < 0.5) el.setAttribute('data-inv', '');

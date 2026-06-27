@@ -121,12 +121,24 @@ header {
 h1 {
   display: block;
   width: max-content;
-  white-space: nowrap;
   font-size: clamp(40px, calc((100svh - 270px) / 1.8), 320px);
   line-height: 0.84;
   font-weight: 400;
   letter-spacing: -0.005em;
   text-transform: uppercase;
+  font-variation-settings:
+    'opsz' 144,
+    'slnt' var(--slnt),
+    'wght' var(--wght),
+    'wdth' var(--lw, 100);
+}
+/* Two stacked lines (Weekend / Projects). Each carries its own wdth axis (--lw)
+   so the script can fit both lines flush to the same width, exactly like the
+   home name — see fitTitle. slnt/wght still come from the buzz engine. */
+h1 .line {
+  display: block;
+  width: max-content;
+  white-space: nowrap;
   font-variation-settings:
     'opsz' 144,
     'slnt' var(--slnt),
