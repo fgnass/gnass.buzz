@@ -112,6 +112,45 @@
       </section>
       <section
         class="band"
+        style="--accent: #1d2b32; --ink-on: #acff69; --frame: #14171d"
+      >
+        <div class="band-inner">
+          <div class="media">
+            <!-- TEMPORARY: local copies under public/screenshots/share/ so the
+                 band can be reviewed before share.gnass.buzz is deployed. Swap
+                 both back to https://share.gnass.buzz/screenshots/*.png (and
+                 delete the copies) once it's live — every other band links the
+                 project's own deployed screenshots so they stay in sync. -->
+            <a class="shot shot--slides" href="https://share.gnass.buzz"
+              ><img
+                src="/screenshots/share/room.png"
+                alt="share screenshot"
+                loading="lazy" /><img
+                src="/screenshots/share/pair.png"
+                alt=""
+                aria-hidden="true"
+                loading="lazy"
+            /></a>
+          </div>
+          <div class="text">
+            <h2 class="proj-name">share</h2>
+            <p class="desc">
+              Transfer files directly between any two devices with a browser and
+              a camera, regardless of the operating system. All data is sent
+              peer-to-peer via WebRTC, encrypted end-to-end, and never touches a
+              server. Even the connection handshake avoids one: the devices pair
+              by showing each other QR codes, so the keys are exchanged by camera
+              rather than by a middleman.
+            </p>
+            <nav class="links">
+              <a class="solid" href="https://share.gnass.buzz">Open app</a>
+              <a class="ghost" href="https://github.com/fgnass/share">Source</a>
+            </nav>
+          </div>
+        </div>
+      </section>
+      <section
+        class="band"
         style="--accent: #2e1b52; --ink-on: #e6d3ff; --frame: #140b26"
       >
         <div class="band-inner">
@@ -216,40 +255,6 @@
               <a class="ghost" href="https://github.com/fgnass/gifsky"
                 >Source</a
               >
-            </nav>
-          </div>
-        </div>
-      </section>
-      <section
-        class="band"
-        style="--accent: #acff69; --ink-on: #14171d; --frame: #14171d"
-      >
-        <div class="band-inner">
-          <div class="media">
-            <a class="shot shot--slides" href="https://share.gnass.buzz"
-              ><img
-                src="https://share.gnass.buzz/screenshots/room.png"
-                alt="share screenshot"
-                loading="lazy" /><img
-                src="https://share.gnass.buzz/screenshots/pair.png"
-                alt=""
-                aria-hidden="true"
-                loading="lazy"
-            /></a>
-          </div>
-          <div class="text">
-            <h2 class="proj-name">share</h2>
-            <p class="desc">
-              AirDrop, except it doesn’t care what the two devices are. Phone
-              to laptop, Android to Mac, Linux to iPad — anything with a
-              browser and a camera. There is no signalling server behind it
-              either: the two devices hold up QR codes and read each other’s to
-              negotiate the connection, then talk peer-to-peer over WebRTC.
-              Nothing is uploaded, and nothing in the middle knows they met.
-            </p>
-            <nav class="links">
-              <a class="solid" href="https://share.gnass.buzz">Open app</a>
-              <a class="ghost" href="https://github.com/fgnass/share">Source</a>
             </nav>
           </div>
         </div>
