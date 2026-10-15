@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#2b2d42" />
+    <title>Privacy · Felix Gnass</title>
+    <meta
+      name="description"
+      content="Privacy notice for gnass.buzz and the project sites on its subdomains: private, non-commercial hobby projects without cookies or tracking."
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="canonical" href="https://gnass.buzz/privacy/" />
+    <link rel="stylesheet" href="/privacy.css" />
+  </head>
+  <body>
+    <header>
+      <a class="kicker" href="/">gnass.buzz</a>
+      <a class="back" href="/projects/">← Projects</a>
+    </header>
+    <main>
+      <h1>Privacy</h1>
+      <p class="lead">
+        gnass.buzz and the project sites on its subdomains (for example
+        <a href="https://drift.gnass.buzz/">drift.gnass.buzz</a> or
+        <a href="https://tuner.gnass.buzz/">tuner.gnass.buzz</a>) are private, non-commercial
+        hobby projects. There are no ads, nothing is for sale, and there is no
+        business behind them.
+      </p>
+
+      <h2>Who is responsible</h2>
+      <p>Felix Gnass · <a id="email" href="#">E-Mail</a></p>
+
+      <h2>What these sites do not do</h2>
+      <ul>
+        <li>No cookies.</li>
+        <li>No analytics, no tracking, no ads.</li>
+        <li>No accounts and no forms.</li>
+        <li>
+          No fonts, scripts or other content from third-party servers. Links to
+          other sites (for example GitHub) load nothing until you click them.
+        </li>
+      </ul>
+
+      <h2>Hosting</h2>
+      <p>
+        All sites are hosted on GitHub Pages, a service of GitHub, Inc., USA.
+        When you open a page, your browser sends the usual request data to
+        GitHub's servers, including your IP address. GitHub keeps this data in
+        server logs to run and protect the service. I have no access to these
+        logs. The legal basis is my legitimate interest in delivering the sites
+        reliably (Art. 6 (1) (f) GDPR). For details, see
+        <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement"
+          >GitHub's privacy statement</a
+        >.
+      </p>
+
+      <h2>The apps</h2>
+      <p>
+        The apps run in your browser. Files, photos, videos, camera images and
+        microphone input that you use in them are processed on your device. They
+        are never uploaded to me or to any server. Some apps keep your settings in
+        your browser's local storage; this data stays on your device, and you
+        can delete it in your browser settings.
+      </p>
+
+      <h2>Your rights</h2>
+      <p>
+        Under the GDPR you have the right to access, rectification, erasure,
+        restriction of processing, data portability and to object. Write me an
+        e-mail for this. You can also complain to a data protection supervisory
+        authority, for example the Hamburg Commissioner for Data Protection and
+        Freedom of Information.
+      </p>
+
+      <p class="note">Last updated: October 2026</p>
+    </main>
+    <script>
+      // The address never appears as user@domain in the HTML source (see home.js).
+      const mail = document.getElementById('email');
+      mail.href = 'mailto:' + 'felix' + String.fromCharCode(64) + ['gnass', 'buzz'].join('.');
+      mail.textContent = 'felix' + String.fromCharCode(64) + ['gnass', 'buzz'].join('.');
+    </script>
+  </body>
+</html>

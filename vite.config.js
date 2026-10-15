@@ -16,6 +16,7 @@ export default defineConfig({
       input: {
         main: 'index.html',
         projects: 'projects/index.html',
+        privacy: 'privacy/index.html',
       },
     },
   },

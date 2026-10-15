@@ -439,3 +439,26 @@ h1 .line {
     max-width: 240px;
   }
 }
+
+/* Footer with the privacy link, below the last band: the colours of the intro
+   panel, the link bottom right like on the home page. */
+.site-footer {
+  --ink: #ef8354;
+  background: var(--theme);
+  color: var(--ink);
+  scroll-snap-align: end;
+  padding: 1.5rem var(--pad);
+  text-align: right;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.site-footer a {
+  color: var(--ink);
+  text-decoration: none;
+  opacity: 0.6;
+}
+.site-footer a:hover {
+  opacity: 1;
+}

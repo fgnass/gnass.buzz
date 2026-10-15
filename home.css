@@ -54,6 +54,22 @@ body {
   text-indent: 0.42em;
 }
 
+/* Privacy link: bottom right, quiet like the back link on /projects. */
+.legal {
+  align-self: flex-end;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: inherit;
+  text-decoration: none;
+  opacity: 0.6;
+  transition: opacity 0.18s;
+}
+.legal:hover {
+  opacity: 1;
+}
+
 /* Main area: left-aligned, vertically centered. Space stays on the right. */
 main {
   flex: 1;
