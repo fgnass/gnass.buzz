@@ -332,6 +332,137 @@ h1 .line {
     'wght' 780,
     'wdth' 80;
 }
+/* colors: a neutral band, and a headline filled with a gradient like the
+   app's: a glow and a band as soft patches over a field, in the gradient
+   colors the app picks for one palette (--c1 band, --c2 glow, --c3 field).
+   The patches wander on their own, at periods that do not line up, so the
+   gradient keeps changing; it blends from palette to palette: Velvet Cosmos,
+   Creamy Caramel, Parakeet Blue, Capercaillie Mauve, Kuwanomi Purple. */
+@property --c1 {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: transparent;
+}
+@property --c2 {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: transparent;
+}
+@property --c3 {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: transparent;
+}
+@property --gx {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 50%;
+}
+@property --gy {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 50%;
+}
+@property --bx {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 50%;
+}
+@property --by {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 50%;
+}
+.band--colors .proj-name {
+  width: fit-content;
+  color: transparent;
+  --c1: #40173f;
+  --c2: #10ff5b;
+  --c3: #855d79;
+  --gx: 30%;
+  --gy: 60%;
+  --bx: 80%;
+  --by: 0%;
+  background:
+    radial-gradient(45% 110% at var(--bx) var(--by), var(--c1), transparent),
+    radial-gradient(55% 130% at var(--gx) var(--gy), var(--c2), transparent),
+    var(--c3);
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation:
+    colors-gx 7s ease-in-out infinite alternate,
+    colors-gy 5.3s ease-in-out infinite alternate,
+    colors-bx 11.7s ease-in-out infinite alternate,
+    colors-by 8.9s ease-in-out infinite alternate,
+    colors-palettes 45s ease-in-out infinite;
+}
+@keyframes colors-gx {
+  to {
+    --gx: 85%;
+  }
+}
+@keyframes colors-gy {
+  to {
+    --gy: 20%;
+  }
+}
+@keyframes colors-bx {
+  to {
+    --bx: 10%;
+  }
+}
+@keyframes colors-by {
+  to {
+    --by: 100%;
+  }
+}
+@keyframes colors-palettes {
+  0%,
+  15.5556% {
+    --c1: #40173f;
+    --c2: #10ff5b;
+    --c3: #855d79;
+  }
+  20%,
+  35.5556% {
+    --c1: #b89570;
+    --c2: #fd0098;
+    --c3: #bfc3a0;
+  }
+  40%,
+  55.5556% {
+    --c1: #095050;
+    --c2: #8eaefe;
+    --c3: #a9ff05;
+  }
+  60%,
+  75.5556% {
+    --c1: #786e88;
+    --c2: #f78efa;
+    --c3: #fdd400;
+  }
+  80%,
+  95.5556% {
+    --c1: #31133f;
+    --c2: #e9ff0b;
+    --c3: #562861;
+  }
+  100% {
+    --c1: #40173f;
+    --c2: #10ff5b;
+    --c3: #855d79;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .band--colors .proj-name {
+    animation: none;
+  }
+}
+.band--colors .desc a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
 .desc {
   font-size: 1.05rem;
   font-weight: 500;
