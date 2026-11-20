@@ -9,7 +9,7 @@
     <title>Projects · Felix Gnass</title>
     <meta
       name="description"
-      content="Weekend projects by Felix Gnass — tuner, truffle, fonts, colors, theremine, gifsky, share, begone, drift, pour, suminagashi: small, self-contained web apps that run entirely on your device."
+      content="Weekend projects by Felix Gnass — tuner, truffle, fonts, colors, theremine, gifsky, share, begone, drift, suminagashi, pour: small, self-contained web apps that run entirely on your device. Plus the Mac apps typewriter, habitab, streamlet and pickup."
     />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="canonical" href="https://gnass.buzz/projects/" />
@@ -21,7 +21,7 @@
     <meta property="og:title" content="Weekend Projects · Felix Gnass" />
     <meta
       property="og:description"
-      content="tuner, truffle, fonts, colors, theremine, gifsky, share, begone, drift, pour, suminagashi — small, self-contained web apps that run entirely on your device."
+      content="tuner, truffle, fonts, colors, theremine, gifsky, share, begone, drift, suminagashi, pour — small, self-contained web apps that run entirely on your device, plus four Mac apps."
     />
     <meta property="og:image" content="https://gnass.buzz/og.png" />
     <meta property="og:image:width" content="2400" />
@@ -32,7 +32,7 @@
     <meta name="twitter:title" content="Weekend Projects · Felix Gnass" />
     <meta
       name="twitter:description"
-      content="tuner, truffle, fonts, colors, theremine, gifsky, share, begone, drift, pour, suminagashi — small, self-contained web apps that run entirely on your device."
+      content="tuner, truffle, fonts, colors, theremine, gifsky, share, begone, drift, suminagashi, pour — small, self-contained web apps that run entirely on your device, plus four Mac apps."
     />
     <meta name="twitter:image" content="https://gnass.buzz/og.png" />
     <!-- Page styles + shared palette colours. The palette is inert here (/projects
@@ -52,7 +52,9 @@
         ><a class="back" href="/"><span class="arrow">←</span> Home</a>
       </header>
       <div class="title">
-        <h1><span class="line">Weekend</span><span class="line">Projects</span></h1>
+        <h1>
+          <span class="line">Weekend</span><span class="line">Projects</span>
+        </h1>
       </div>
       <button class="scroll-cue" type="button" aria-label="Scroll to projects">
         <svg
@@ -76,7 +78,7 @@
        tone (a dark tone of that hue, or a light one on a dark band); --frame is
        the screenshot border (defaults to --ink-on, set separately for a dark
        frame on a light-on-dark band). -->
-    <div class="projects" id="projects">      
+    <div class="projects" id="projects">
       <section
         class="band"
         style="--accent: #f9ad7b; --ink-on: #473144; --frame: #473144"
@@ -134,8 +136,8 @@
               a camera, regardless of the operating system. All data is sent
               peer-to-peer via WebRTC, encrypted end-to-end, and never touches a
               server. Even the connection handshake avoids one: the devices pair
-              by showing each other QR codes, so the keys are exchanged by camera
-              rather than by a middleman.
+              by showing each other QR codes, so the keys are exchanged by
+              camera rather than by a middleman.
             </p>
             <nav class="links">
               <a class="solid" href="https://share.gnass.buzz">Open app</a>
@@ -243,14 +245,14 @@
           <div class="text">
             <h2 class="proj-name">fonts</h2>
             <p class="desc">
-              Google Fonts has about 1,800 families, and there are hundreds
-              more open-source fonts on the sites of independent foundries and
-              type collectives. fonts puts more than 2,600 of them in one
-              place, and you search them by how they look. I measured every
-              font for weight, width, contrast, serifs and more, and turned the
-              values into sliders. You can also draw a letter, and an image
-              model finds the fonts whose letters have a similar shape. Star
-              the ones you like and try them as a heading and body text pair.
+              Google Fonts has about 1,800 families, and there are hundreds more
+              open-source fonts on the sites of independent foundries and type
+              collectives. fonts puts more than 2,600 of them in one place, and
+              you search them by how they look. I measured every font for
+              weight, width, contrast, serifs and more, and turned the values
+              into sliders. You can also draw a letter, and an image model finds
+              the fonts whose letters have a similar shape. Star the ones you
+              like and try them as a heading and body text pair.
             </p>
             <nav class="links">
               <a class="solid" href="https://fonts.gnass.buzz">Open app</a>
@@ -287,13 +289,13 @@
               For the type I built
               <a href="https://fonts.gnass.buzz">fonts</a>, but finding good
               colors always took me too long. Over the years I had saved
-              screenshots of palettes I liked, so I analyzed them for a
-              pattern. It was not the hues, they were spread almost at random.
-              What held each palette together was how its lightness and
-              saturation relate. colors turns that relation into a model and
-              makes an endless feed of palettes to swipe through. It shows each
-              palette on shapes, as a gradient, as a light or dark UI, or on
-              your own logo, and exports it as CSS variables.
+              screenshots of palettes I liked, so I analyzed them for a pattern.
+              It was not the hues, they were spread almost at random. What held
+              each palette together was how its lightness and saturation relate.
+              colors turns that relation into a model and makes an endless feed
+              of palettes to swipe through. It shows each palette on shapes, as
+              a gradient, as a light or dark UI, or on your own logo, and
+              exports it as CSS variables.
             </p>
             <nav class="links">
               <a class="solid" href="https://colors.gnass.buzz">Open app</a>
@@ -326,9 +328,9 @@
             <p class="desc">
               I kept needing quick GIFs from short clips, but every converter
               felt like a detour through uploads, accounts, and watermarks.
-              gifsky keeps that workflow local: drop in a video, trim the
-              moment on a scrubber, and let a WebAssembly build of gifski encode
-              the selected frames in your browser.
+              gifsky keeps that workflow local: drop in a video, trim the moment
+              on a scrubber, and let a WebAssembly build of gifski encode the
+              selected frames in your browser.
             </p>
             <nav class="links">
               <a class="solid" href="https://gifsky.gnass.buzz">Open app</a>
@@ -365,14 +367,16 @@
             <p class="desc">
               Every time I needed a photo without its background, the tools
               wanted my picture on their servers, an account, or money for the
-              full resolution. <em>Begone</em> runs a segmentation model right in the
-              browser, on the GPU where it can, then cleans up soft edges and
-              keeps the real shadow if you want it. It works offline, and your
-              images never leave your device.
+              full resolution. <em>Begone</em> runs a segmentation model right
+              in the browser, on the GPU where it can, then cleans up soft edges
+              and keeps the real shadow if you want it. It works offline, and
+              your images never leave your device.
             </p>
             <nav class="links">
               <a class="solid" href="https://bg.gnass.buzz">Open app</a>
-              <a class="ghost" href="https://github.com/fgnass/begone">Source</a>
+              <a class="ghost" href="https://github.com/fgnass/begone"
+                >Source</a
+              >
             </nav>
           </div>
         </div>
@@ -400,15 +404,58 @@
               A friend told me the only thing that reliably puts them to sleep
               is a ten-hour YouTube recording of an arctic blizzard. I ran the
               recording through an analysis script to measured its spectrum and
-              the rhythm of its gusts. I then rebuilt the storm as a
-              synthesizer that stays close to the original: layered noise
-              shaped into rumble, wind, howl and snow, with a sleep timer and a
-              mixer. It plays offline, with no stream and no ads. Maybe it
-              helps others drift off too.
+              the rhythm of its gusts. I then rebuilt the storm as a synthesizer
+              that stays close to the original: layered noise shaped into
+              rumble, wind, howl and snow, with a sleep timer and a mixer. It
+              plays offline, with no stream and no ads. Maybe it helps others
+              drift off too.
             </p>
             <nav class="links">
               <a class="solid" href="https://drift.gnass.buzz">Open app</a>
               <a class="ghost" href="https://github.com/fgnass/drift">Source</a>
+            </nav>
+          </div>
+        </div>
+      </section>
+      <section
+        class="band"
+        style="--accent: #f6dbe6; --ink-on: #3b1a5e; --frame: #2b1a3a"
+      >
+        <div class="band-inner">
+          <div class="media">
+            <a class="shot shot--slides" href="https://suminagashi.gnass.buzz"
+              ><img
+                src="https://suminagashi.gnass.buzz/screenshots/rings.png"
+                alt="suminagashi screenshot"
+                loading="lazy" /><img
+                src="https://suminagashi.gnass.buzz/screenshots/swirl.png"
+                alt=""
+                aria-hidden="true"
+                loading="lazy" /><img
+                src="https://suminagashi.gnass.buzz/screenshots/start.png"
+                alt=""
+                aria-hidden="true"
+                loading="lazy"
+            /></a>
+          </div>
+          <div class="text">
+            <h2 class="proj-name">suminagashi</h2>
+            <p class="desc">
+              Suminagashi, “floating ink”, is the oldest way of marbling paper:
+              drops of ink and of soapy water spread on water in rings, a breath
+              or a needle moves them into lines, and a sheet of paper laid on
+              the water takes up the picture. suminagashi lets you do this on
+              your phone, with a needle, a whisker, a straw, a toothbrush and a
+              drop of alcohol. A fluid simulation runs on the GPU with WebGL 2.
+              Lay paper on the water to keep a print, or watch the demo.
+            </p>
+            <nav class="links">
+              <a class="solid" href="https://suminagashi.gnass.buzz"
+                >Open app</a
+              >
+              <a class="ghost" href="https://github.com/fgnass/suminagashi"
+                >Source</a
+              >
             </nav>
           </div>
         </div>
@@ -452,46 +499,88 @@
           </div>
         </div>
       </section>
-      <section
-        class="band"
-        style="--accent: #f6dbe6; --ink-on: #3b1a5e; --frame: #2b1a3a"
-      >
-        <div class="band-inner">
-          <div class="media">
-            <a class="shot shot--slides" href="https://suminagashi.gnass.buzz"
+    </div>
+    <!-- Mac apps: one band with the app icons and a short text for each. -->
+    <section
+      class="band band--mac"
+      id="mac"
+      style="--accent: #ece8e1; --ink-on: #23202b; --frame: #23202b"
+    >
+      <div class="mac-inner">
+        <h2 class="proj-name">Mac Apps</h2>
+        <ul class="apps">
+          <li class="app">
+            <a class="app-icon" href="https://typewriter.gnass.buzz"
               ><img
-                src="https://suminagashi.gnass.buzz/screenshots/rings.png"
-                alt="suminagashi screenshot"
-                loading="lazy" /><img
-                src="https://suminagashi.gnass.buzz/screenshots/swirl.png"
+                src="https://typewriter.gnass.buzz/icon.png"
                 alt=""
-                aria-hidden="true"
-                loading="lazy" /><img
-                src="https://suminagashi.gnass.buzz/screenshots/start.png"
-                alt=""
-                aria-hidden="true"
+                width="96"
+                height="96"
                 loading="lazy"
             /></a>
-          </div>
-          <div class="text">
-            <h2 class="proj-name">suminagashi</h2>
-            <p class="desc">
-              Suminagashi, “floating ink”, is the oldest way of marbling paper:
-              drops of ink and of soapy water spread on water in rings, a breath
-              or a needle moves them into lines, and a sheet of paper laid on
-              the water takes up the picture. suminagashi lets you do this on
-              your phone, with a needle, a whisker, a straw, a toothbrush and a
-              drop of alcohol. A fluid simulation runs on the GPU with WebGL 2.
-              Lay paper on the water to keep a print, or watch the demo.
+            <h3 class="app-name">
+              <a href="https://typewriter.gnass.buzz">typewriter</a>
+            </h3>
+            <p class="app-desc">
+              Write in any app on a quiet page with nothing else on the screen.
+              Press ⌥ Space, type, and ⌘↩ puts the text where your cursor was.
             </p>
-            <nav class="links">
-              <a class="solid" href="https://suminagashi.gnass.buzz">Open app</a>
-              <a class="ghost" href="https://github.com/fgnass/suminagashi">Source</a>
-            </nav>
-          </div>
-        </div>
-      </section>
-    </div>
+          </li>
+          <li class="app">
+            <a class="app-icon" href="https://habitab.gnass.buzz"
+              ><img
+                src="https://habitab.gnass.buzz/img/icon.png"
+                alt=""
+                width="96"
+                height="96"
+                loading="lazy"
+            /></a>
+            <h3 class="app-name">
+              <a href="https://habitab.gnass.buzz">habitab</a>
+            </h3>
+            <p class="app-desc">
+              One window for the browsers of your coding agents. See what each
+              agent does, take control, mark an area and send the problem back.
+            </p>
+          </li>
+          <li class="app">
+            <a class="app-icon" href="https://streamlet.gnass.buzz"
+              ><img
+                src="https://streamlet.gnass.buzz/assets/img/icon-512.png"
+                alt=""
+                width="96"
+                height="96"
+                loading="lazy"
+            /></a>
+            <h3 class="app-name">
+              <a href="https://streamlet.gnass.buzz">streamlet</a>
+            </h3>
+            <p class="app-desc">
+              Your music streaming service as a small Mac app, with play, pause
+              and skip in the menu bar, the notch and a miniplayer.
+            </p>
+          </li>
+          <li class="app">
+            <a class="app-icon" href="https://pickup.gnass.buzz"
+              ><img
+                src="https://pickup.gnass.buzz/icon.png"
+                alt=""
+                width="96"
+                height="96"
+                loading="lazy"
+            /></a>
+            <h3 class="app-name">
+              <a href="https://pickup.gnass.buzz">pickup</a>
+            </h3>
+            <p class="app-desc">
+              Right-click files in the Finder and let a phone pick them up with
+              a QR code, or let it drop files into a folder. Local and
+              encrypted.
+            </p>
+          </li>
+        </ul>
+      </div>
+    </section>
     <footer class="site-footer">
       <a href="/privacy/">Privacy</a>
     </footer>

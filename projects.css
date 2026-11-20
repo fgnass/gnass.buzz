@@ -593,3 +593,70 @@ h1 .line {
 .site-footer a:hover {
   opacity: 1;
 }
+
+/* Mac apps: one band with a grid of app icons, each with a name, a short
+   text and a link to the source. */
+.mac-inner {
+  width: 100%;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: clamp(2rem, 6vw, 4rem) var(--pad);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 5vw, 3.5rem);
+}
+.apps {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: clamp(2rem, 4vw, 3rem);
+}
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6rem;
+  color: var(--ink-on);
+}
+.app-icon {
+  display: block;
+  width: 96px;
+  margin-bottom: 0.4rem;
+  transition: transform 0.12s ease;
+}
+.app-icon:hover {
+  transform: translateY(-3px);
+}
+.app-icon:active {
+  transform: translateY(3px);
+}
+.app-icon img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.app-name {
+  font-size: 1.6rem;
+  line-height: 1;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-variation-settings:
+    'opsz' 100,
+    'wght' 780,
+    'wdth' 80;
+}
+.app-name a {
+  color: inherit;
+  text-decoration: none;
+}
+.app-desc {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5;
+  opacity: 0.85;
+}
+.app-name a:hover {
+  opacity: 1;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
